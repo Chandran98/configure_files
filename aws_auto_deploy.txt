@@ -1,0 +1,135 @@
+After pushing into github 
+
+Launching the instance 
+
+open your instance in powershell or  cmd terminal or putty
+
+/////////////////////////////////////////////////////////////////////
+
+Go to your settings 
+
+set the .env variables in secrets & variables
+
+New repo 
+
+put your .env variables and Save it
+
+/////////////////////////////////////////////////////////////////////
+
+
+After go to Actions Tab, just after the pull request Tab
+
+In continous Integration 
+
+you will find Node js, press configure
+
+name it = ""
+
+select your node verison = 18x
+
+and save it
+
+/////////////////////////////////////////////////////////////////////
+
+
+Github Setting => Actions -> Runners starts follow the commands 
+
+1.  mkdir actions-runner-"name"(backend )&& cd actions-runner-"name"(backend)
+2.  curl -o actions-runner-linux-x64-2.305.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.305.0/actions-runner-linux-x64-2.305.0.tar.gz
+
+
+Enter into  action-runners 
+
+1.  sudo ./svc.sh install
+
+2.  sudo ./svc.sh start
+
+
+check the folders which you have pushed into github and for .env file use (ls-la) command
+
+
+
+Install  nodejs into system follow below command:
+
+1. sudo apt update
+
+2.  curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+
+3.  sudo apt-get install --yes nodejs
+
+check the node version
+
+use node -v npm -v command 
+
+
+
+Install Nginx - To act as proxy server
+
+1. sudo apt-get install -y nginx
+
+
+Install PM2 - which act as nodemon (Production manager for Node Js)
+
+1.   sudo npm i -g pm2
+
+2.   pm2  (command to check pm2 )
+
+
+now to configure Nginx to get proxy information
+
+To do that change the path - cd /etc/niginx/sites-available
+
+To make changes in Nginx follow the below command:
+
+1.  sudo nano default
+
+2.  location  /api{
+rewrite ^\/api\/(.*)$ /api/$1 break;  // ***^\/api\/(.*)$ is route convert to /api/$1 ***//
+proxy_pass http://localhost:5030; (your port no.)
+proxy_set_header Host $host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+
+save the file using command [ Ctrl + X ]
+
+After that restart the nginx; whenver you do some changes restart ngnix
+
+1. sudo systemctl restart nginx
+
+
+Now change path to main working folder, server.js or index.js file
+
+start the pm2 to run file and name it so that we don't have to repeat this command 
+
+1. pm2 start server.js --name=Backendapi
+
+
+Now you wil see your project on Online 
+
+
+/////////////////////////////////////////////////////////////////////
+
+
+For autoDeploy
+
+Go to your github- workflow (You can also find it in Actions Tab)
+
+at end add the command
+
+1. -run: pm2 restart Backendapi (your pm2 name )
+
+Now it will autodeploy it, once you push your code into github
+
+
+/////////////////////////////////////////////////////////////////////
+
+
+
+Finally Done....
+
+
+
+
+
+
