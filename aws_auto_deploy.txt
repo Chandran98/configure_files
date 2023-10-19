@@ -110,6 +110,15 @@ Now you wil see your project on Online
 
 /////////////////////////////////////////////////////////////////////
 
+for SSL
+inside cd /etc/nginx 
+
+sudo chmod 7000 /etc/nginx/ssl
+
+sudo openssl req -x509 -noodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/file_name.key -out /etc/nginx/ssl/file_name.crt
+
+////////////////////////////////////////////////////////////////////
+
 
 For autoDeploy
 
