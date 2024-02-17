@@ -29,6 +29,10 @@ Node2 account > geth --datadir "./data" account new
   }
 }
 
+init genesis with node1 & node2
+ geth --datadir ./node1 init ../genesis.json
+ geth --datadir ./node2 init ../genesis.json
+
 
 To create bootnode > bootnode -genkey { NAME_OF_THE_KEY }.key
 To start bootnode > bootnode -nodekey { KEY_NAME } -verbosity 7 -addr "127.0.0.1:30301"
