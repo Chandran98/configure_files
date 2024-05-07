@@ -138,6 +138,12 @@ Now it will autodeploy it, once you push your code into github
 Finally Done....
 
 
+ssl
+
+https://medium.com/@eikachiu/install-certbot-with-nginx-on-amazon-linux-2023-0a908f73ceb1
+
+
+
 
 
 
