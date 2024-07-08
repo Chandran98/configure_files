@@ -1,0 +1,5 @@
+mongo dump cmd
+mongodump --uri="mongodb://{ipaddr}/{dbname}"
+
+mongo restore cmd
+mongorestore "{with new uri}"/ {foldername} 
