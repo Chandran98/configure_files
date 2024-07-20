@@ -1,0 +1,76 @@
+wget https://github.com/prometheus/prometheus/releases/download/v2.53.1/prometheus-2.53.1.linux-amd64.tar.gz
+
+tar xzf filename.
+
+mv Prometheus /etc/Prometheus
+
+sudo nano /etc/system/system/Prometheus.service
+
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+[Service]
+ExecStart=/etc/prometheus/prometheus --config.file=/etc/prometheus/prometheus.yml
+Restart=always
+[Install]
+WantedBy=multi-user.target
+
+
+
+systemctl daemon-reload
+systemctl restart Prometheus
+systemctl enable Prometheus
+systemctl status Prometheus
+
+
+
+Node exporter
+
+wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+
+tar xzf filename
+
+mv Prometheus /etc/node_exporter
+
+sudo nano /etc/system/system/node_exporter.service
+
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+[Service]
+ExecStart=/etc/node_exporter/node_exporter
+Restart=always
+[Install]
+WantedBy=multi-user.target
+
+systemctl daemon-reload
+systemctl restart node_exporter
+systemctl enable node_exporter
+systemctl status node_exporter
+
+
+rm rf/etc/Prometheus/promethes.yml
+sudo nano /etc/Prometheus/promethes.yml
+
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+- job_name: node
+  static_configs:
+  - targets: ['ip:9100']
+
+
+Granfana installation
+
+sudo apt-get install -y adduser libfontconfig1 musl
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise_11.1.0_amd64.deb
+sudo dpkg -i grafana-enterprise_11.1.0_amd64.deb
+
+
+systemctl restart grafana-server
+systemctl enable grafana-server
+systemctl status grafana-server
+
+
+login Grafana  http://{ip}:3000/login
