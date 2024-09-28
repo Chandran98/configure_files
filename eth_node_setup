@@ -1,0 +1,36 @@
+# ETH_node_setup_2023 Cloud / Local
+
+## installing Packages
+
+`sudo apt update`
+
+`sudo add-apt-repository -y ppa:ethereum/ethereum`
+
+`sudo apt-get update`
+
+`sudo apt-get install ethereum`
+
+
+## Connecting to Consensus Clients
+
+
+`mkdir prysm && cd prysm`
+
+`curl https://raw.githubusercontent.com/prysmaticlabs/prysm/master/prysm.sh --output prysm.sh && chmod +x prysm.sh`
+
+`./prysm.sh beacon-chain generate-auth-secret`
+
+## starting geth server/node
+
+`geth --mainnet --http  --http.api web3,eth,admin,debug,personal,net --ws --ws.port 8545 --ws.api "eth,net,web3" --ws.origins "*" --authrpc.jwtsecret=/opt/eth/prysm/jwt.hex`
+
+## starting Consensus Client
+
+`./prysm.sh beacon-chain --execution-endpoint=http://localhost:8551 --mainnet --checkpoint-sync-url=https://beaconstate.info --genesis-beacon-api-url=https://beaconstate.info --suggested-fee-recipient=0x01234567722E6b0000012BFEBf6177F1D2e9758D9`
+
+
+add your address in above cmmand insted of "0x01234567722E6b0000012BFEBf6177F1D2e9758D9"
+
+
+------------------------------------------------------------------------------------------------------------
+
